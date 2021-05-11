@@ -23,7 +23,7 @@ public class UserRestCrt {
     }
     
     @RequestMapping(method=RequestMethod.GET,value="/users/{id}")
-    public User getuser(@PathVariable String id) {
+    public User getUser(@PathVariable String id) {
     	User u=uService.getUser(Integer.valueOf(id));
         return u;
     }

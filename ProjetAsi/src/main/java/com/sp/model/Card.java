@@ -15,7 +15,10 @@ public class Card {
 	private int energy;
 	private int hp;
 	private int price;
+	private int idUser = -1;
+	
 	public Card() {}
+	
 	public Card(int id, String name,String description,String family,int energy,int hp,int price) {
 		super();
 		this.id = id;
@@ -62,6 +65,14 @@ public class Card {
 	}
 	public void setPrice(int price) {
 		this.price = price;
+	}
+
+	public int getIdUser() {
+		return idUser;
+	}
+
+	public void setIdUser(int idUser) {
+		this.idUser = idUser;
 	}
 	
 	

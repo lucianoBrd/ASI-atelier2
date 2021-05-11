@@ -12,8 +12,11 @@ public class User {
 	private String name;
 	private String surname;
 	private String password;
+	private int solde = 5000;
+	
 	public User() {	
 	}
+	
 	public User(int id, String name,String surname,String password) {
 		super();
 		this.id = id;
@@ -39,6 +42,14 @@ public class User {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+
+	public int getSolde() {
+		return solde;
+	}
+
+	public void setSolde(int solde) {
+		this.solde = solde;
 	}
 	
 }
