@@ -15,7 +15,7 @@ public class Card {
 	private int energy;
 	private int hp;
 	private int price;
-	private int idUser = -1;
+	private Integer idUser;
 	
 	public Card() {}
 	
@@ -29,6 +29,12 @@ public class Card {
 		this.setHp(hp);
 		this.setPrice(price);
 		
+	}
+	public Integer getId() {
+		return id;
+	}
+	public void setId(Integer id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
@@ -67,13 +73,15 @@ public class Card {
 		this.price = price;
 	}
 
-	public int getIdUser() {
+	public Integer getIdUser() {
 		return idUser;
 	}
 
-	public void setIdUser(int idUser) {
+	public void setIdUser(Integer idUser) {
 		this.idUser = idUser;
 	}
+
+	
 	
 	
 	

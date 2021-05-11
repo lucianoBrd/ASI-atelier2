@@ -35,14 +35,14 @@ public class CardRestCrt {
     	cService.addCard(card);
     }
     
-    @RequestMapping(method=RequestMethod.POST,value="/cards/buy")
+    @RequestMapping(method=RequestMethod.GET,value="/cards/buy")
     public Iterable<Card> getBuyedCard() {
     	Iterable<Card> c=cService.getBuyedCard();
     	return c;
     	
     }
     
-    @RequestMapping(method=RequestMethod.POST,value="/cards/sell/{idUser}")
+    @RequestMapping(method=RequestMethod.GET,value="/cards/sell/{idUser}")
     public Iterable<Card> getSelledCard(@PathVariable String idUser) {
     	Iterable<Card> c=cService.getSelledCard(Integer.valueOf(idUser));
     	return c;
