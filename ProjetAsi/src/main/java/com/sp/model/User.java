@@ -1,13 +1,22 @@
 package com.sp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class User {
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private String name;
 	private String surname;
 	private String password;
 	public User() {	
 	}
-	public User(String name,String surname,String password) {
+	public User(int id, String name,String surname,String password) {
 		super();
+		this.id = id;
 		this.setName(name);
 		this.setSurname(surname);
 		this.setPassword(password);

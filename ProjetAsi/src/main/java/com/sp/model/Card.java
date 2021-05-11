@@ -1,6 +1,14 @@
 package com.sp.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+@Entity
 public class Card {
+	@Id
+	@GeneratedValue
+	private Integer id;
 	private String name;
 	private String description;
 	private String family;
@@ -8,7 +16,9 @@ public class Card {
 	private int hp;
 	private int price;
 	public Card() {}
-	public Card(String name,String description,String family,int energy,int hp,int price) {
+	public Card(int id, String name,String description,String family,int energy,int hp,int price) {
+		super();
+		this.id = id;
 		this.setName(name);
 		this.setDescription(description);
 		this.setFamily(family);
