@@ -6,8 +6,6 @@ import org.springframework.stereotype.Service;
 import com.sp.model.Card;
 import com.sp.repository.CardRepository;
 
-import net.bytebuddy.dynamic.DynamicType.Builder.FieldDefinition.Optional;
-
 @Service
 public class CardService {
     
@@ -18,7 +16,7 @@ public class CardService {
 		System.out.println(createdCard);
 	}
 	
-	public Card getCard(int id) {
+	public Card getCardbyId(int id) {
 		java.util.Optional<Card> cOpt =cRepository.findById(id);
 		if (cOpt.isPresent()) {
 			return cOpt.get();
@@ -26,6 +24,12 @@ public class CardService {
 			return null;
 		}
 	}
+	
+	public Iterable<Card> getCardsList() {
+		Iterable<Card> cOpt =cRepository.findAll();
 
-
+		return cOpt;
+	}
+	
+		
 }

@@ -19,8 +19,19 @@ public class CardRestCrt {
     CardService cService;
     
     @RequestMapping(method=RequestMethod.GET,value="/cards/{id}")
-    public Card getCard(@PathVariable String id) {
-    	Card c=cService.getCard(Integer.valueOf(id));
+    public Card getCardbyId(@PathVariable String id) {
+    	Card c=cService.getCardbyId(Integer.valueOf(id));
         return c;
+    }
+    
+    @RequestMapping(method=RequestMethod.GET,value="/cards")
+    public Iterable<Card> getCardsList() {
+    	Iterable<Card> c=cService.getCardsList();
+        return c;
+    }
+    
+    @RequestMapping(method=RequestMethod.POST,value="/cards")
+    public void addUser(@RequestBody Card card) {
+    	cService.addCard(card);
     }
 }
