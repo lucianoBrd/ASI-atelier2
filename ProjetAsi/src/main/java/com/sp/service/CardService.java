@@ -30,6 +30,16 @@ public class CardService {
 
 		return cOpt;
 	}
+
+	public Iterable<Card> getBuyedCard() {
+		Iterable<Card> cOpt =cRepository.findByIdUser(-1);
+		return cOpt;
+	}
+
+	public Iterable<Card> getSelledCard(int idUser) {
+		Iterable<Card> cOpt =cRepository.findByIdUser(idUser);
+		return cOpt;
+	}
 	
 		
 }
