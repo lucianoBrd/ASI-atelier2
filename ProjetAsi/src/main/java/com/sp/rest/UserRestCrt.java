@@ -24,6 +24,7 @@ public class UserRestCrt {
     
     @RequestMapping(method=RequestMethod.POST,value="/users")
     public void addUser(@RequestBody User user) {
+    	System.out.println(user.getName());
     	uService.addUser(user);
     }
     

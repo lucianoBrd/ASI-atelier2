@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <!-- Standard Meta -->
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+        <!-- Site Properties -->
+        <title>Sign up</title>
+
+        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/custom.css">
+
+    </head>
+
+    <body>
+        <div class="ui five column grid">
+            <div class="row"></div>
+            <div class="column"></div>
+            <div class="column"></div>
+            <div class="column">
+                <form class="ui form" action="#" th:action="@{/users}" th:object="${user}" method="post">
+                    <p>name: <input type="text" th:field="*{name}" /></p>
+                    <p>surname: <input type="text" th:field="*{surname}" /></p>
+                    <p>password: <input type="password" th:field="*{password}" /></p>
+                    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+                </form>
+                <!--<form class="ui form" action="http://127.0.0.1:8080/users" method="POST">
+                    <h3 class="ui dividing header">Add an user</h3>
+                    <div class="field">
+                        <label>Name</label>
+                        <input type="text" name="name" placeholder="Name">
+                    </div>
+                    <div class="field">
+                        <label>Surname</label>
+                        <input type="text" name="surname" placeholder="Surname">
+                    </div>
+                    <div class="field">
+                        <label>Password</label>
+                        <input type="password" name="password" placeholder="Password">
+                    </div>
+                    <div class="field">
+                        <label>Retape Password</label>
+                        <input type="password" name="password-bis" placeholder="Password bis">
+                    </div>
+                    <div class="field">
+                        <div class="ui checkbox field">
+                            <input type="checkbox" name="pvisible">
+                            <label>Make my profile visible</label>
+                        </div>
+                    </div>
+                    <button class="ui button" type="submit" >Submit</button>
+                </form>-->
+            </div>
+        </div>
+    </body>
+</html>
