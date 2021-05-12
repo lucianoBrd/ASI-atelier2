@@ -23,7 +23,7 @@ public class MarketService {
 	public Boolean buyCard(int id, int idUser) {
 		Card c = cService.getCardbyId(id);
 		User u = uService.getUser(idUser);
-		System.out.println( "  /// " + id + " ///  "+ idUser);
+		
 		if (c != null && u != null && c.getIdUser() == null && (u.getSolde() - c.getPrice()) >= 0) {
 			c.setIdUser(idUser);
 			cRepository.save(c);
