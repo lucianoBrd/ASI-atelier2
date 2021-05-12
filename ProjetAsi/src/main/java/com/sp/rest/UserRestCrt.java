@@ -23,9 +23,11 @@ public class UserRestCrt {
     private ModelMapper modelMapper;
     
     @RequestMapping(method=RequestMethod.POST,value="/users")
-    public void addUser(@RequestBody User user) {
-    	System.out.println(user.getName());
+    public boolean addUser(@RequestBody User user) {
+    	
     	uService.addUser(user);
+    	
+    	return true;
     }
     
     @RequestMapping(method=RequestMethod.GET,value="/users/{id}")

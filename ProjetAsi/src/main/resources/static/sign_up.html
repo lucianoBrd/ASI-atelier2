@@ -11,6 +11,7 @@
 
         <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
         <link rel="stylesheet" type="text/css" href="./css/custom.css">
+        <script src="./lib/jquery-3.3.1.min.js"></script>
 
     </head>
 
@@ -20,39 +21,37 @@
             <div class="column"></div>
             <div class="column"></div>
             <div class="column">
-                <form class="ui form" action="#" th:action="@{/users}" th:object="${user}" method="post">
-                    <p>name: <input type="text" th:field="*{name}" /></p>
-                    <p>surname: <input type="text" th:field="*{surname}" /></p>
-                    <p>password: <input type="password" th:field="*{password}" /></p>
+                <form class="ui form">
+                    <h3 class="ui dividing header">Sign up</h3>
+                    <p>name: <input type="text" id="name" /></p>
+                    <p>surname: <input type="text" id="surname" /></p>
+                    <p>password: <input type="password" id="password" /></p>
                     <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
                 </form>
-                <!--<form class="ui form" action="http://127.0.0.1:8080/users" method="POST">
-                    <h3 class="ui dividing header">Add an user</h3>
-                    <div class="field">
-                        <label>Name</label>
-                        <input type="text" name="name" placeholder="Name">
-                    </div>
-                    <div class="field">
-                        <label>Surname</label>
-                        <input type="text" name="surname" placeholder="Surname">
-                    </div>
-                    <div class="field">
-                        <label>Password</label>
-                        <input type="password" name="password" placeholder="Password">
-                    </div>
-                    <div class="field">
-                        <label>Retape Password</label>
-                        <input type="password" name="password-bis" placeholder="Password bis">
-                    </div>
-                    <div class="field">
-                        <div class="ui checkbox field">
-                            <input type="checkbox" name="pvisible">
-                            <label>Make my profile visible</label>
-                        </div>
-                    </div>
-                    <button class="ui button" type="submit" >Submit</button>
-                </form>-->
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $("form").submit(function (event) {
+                    var formData = {
+                        name: $("#name").val(),
+                        surname: $("#surname").val(),
+                        password: $("#password").val(),
+                    };
+
+                    $.ajax({
+                        type: "POST",
+                        url: "/users",
+                        data: JSON.stringify(formData),
+                        dataType: "json",
+                        contentType: 'application/json'
+                    }).done(function (data) {
+                        $(location).attr('href', '/login.html');
+                    });
+
+                    event.preventDefault();
+                });
+            });
+        </script>
     </body>
 </html>
