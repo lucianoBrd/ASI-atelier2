@@ -8,6 +8,6 @@ public interface CardRepository extends CrudRepository<Card, Integer> {
 
 	public List<Card> findByName(String name);
 
-	public Iterable<Card> findByIdUser(int i);
+	public Iterable<Card> findByIdUser(Integer i);
 }
 

@@ -32,7 +32,7 @@ public class CardService {
 	}
 
 	public Iterable<Card> getBuyedCard() {
-		Iterable<Card> cOpt =cRepository.findByIdUser(-1);
+		Iterable<Card> cOpt =cRepository.findByIdUser(null);
 		return cOpt;
 	}
 
