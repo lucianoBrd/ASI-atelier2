@@ -1,57 +1,59 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <!-- Standard Meta -->
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <!-- Site Properties -->
-        <title>Sign up</title>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="./css/custom.css">
-        <script src="./lib/jquery-3.3.1.min.js"></script>
+    <!-- Site Properties -->
+    <title>Sign up</title>
 
-    </head>
+    <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
+    <script src="./lib/jquery-3.3.1.min.js"></script>
 
-    <body>
-        <div class="ui five column grid">
-            <div class="row"></div>
-            <div class="column"></div>
-            <div class="column"></div>
-            <div class="column">
-                <form class="ui form">
-                    <h3 class="ui dividing header">Sign up</h3>
-                    <p>name: <input type="text" id="name" /></p>
-                    <p>surname: <input type="text" id="surname" /></p>
-                    <p>password: <input type="password" id="password" /></p>
-                    <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
-                </form>
-            </div>
+</head>
+
+<body>
+    <div class="ui five column grid">
+        <div class="row"></div>
+        <div class="column"></div>
+        <div class="column"></div>
+        <div class="column">
+            <form class="ui form">
+                <h3 class="ui dividing header">Sign up</h3>
+                <p>name: <input type="text" id="name" /></p>
+                <p>surname: <input type="text" id="surname" /></p>
+                <p>password: <input type="password" id="password" /></p>
+                <p><input type="submit" value="Submit" /> <input type="reset" value="Reset" /></p>
+            </form>
         </div>
-        <script>
-            $(document).ready(function () {
-                $("form").submit(function (event) {
-                    var formData = {
-                        name: $("#name").val(),
-                        surname: $("#surname").val(),
-                        password: $("#password").val(),
-                    };
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("form").submit(function (event) {
+                var formData = {
+                    name: $("#name").val(),
+                    surname: $("#surname").val(),
+                    password: $("#password").val(),
+                };
 
-                    $.ajax({
-                        type: "POST",
-                        url: "/users",
-                        data: JSON.stringify(formData),
-                        dataType: "json",
-                        contentType: 'application/json'
-                    }).done(function (data) {
-                        $(location).attr('href', '/login.html');
-                    });
-
-                    event.preventDefault();
+                $.ajax({
+                    type: "POST",
+                    url: "/users",
+                    data: JSON.stringify(formData),
+                    dataType: "json",
+                    contentType: 'application/json'
+                }).done(function (data) {
+                    $(location).attr('href', '/login.html');
                 });
+
+                event.preventDefault();
             });
-        </script>
-    </body>
+        });
+    </script>
+</body>
+
 </html>

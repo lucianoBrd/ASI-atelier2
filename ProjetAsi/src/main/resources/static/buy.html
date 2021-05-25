@@ -1,129 +1,131 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <!-- Standard Meta -->
-        <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <!-- Site Properties -->
-        <title>Buy</title>
+<head>
+    <!-- Standard Meta -->
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
-        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="./css/custom.css">
-        <script src="./lib/jquery-3.3.1.min.js"></script>
-        <script src="./js/cookie.js"></script>
+    <!-- Site Properties -->
+    <title>Buy</title>
 
-    </head>
+    <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
+    <link rel="stylesheet" type="text/css" href="./css/custom.css">
+    <script src="./lib/jquery-3.3.1.min.js"></script>
+    <script src="./js/cookie.js"></script>
 
-    <body>
-        <div class="ui pointing menu">
-            <p class="item" id="solde"></p>
-            <a href="/home.html" class="item">Home</a>
-            <div class="right menu">
-                <p class="item" id="name"></p>
-            </div>
+</head>
+
+<body>
+    <div class="ui pointing menu">
+        <p class="item" id="solde"></p>
+        <a href="/home.html" class="item">Home</a>
+        <div class="right menu">
+            <p class="item" id="name"></p>
+            <a href="#" class="item disconnection">Disconnection</a>
         </div>
-        <div class="ui grid">
-            <div class="ten wide column">
-               <!--  <h3 class="ui center aligned header"> My Card List</h3> -->
-                 <h3 class="ui aligned header"> Market Card List</h3>
-                <!------------------------------------------------------------------------->
-                <!--    ----------------------------- List ----------------------------- -->
-                <!------------------------------------------------------------------------->
-                <table class="ui fixed selectable single line celled table" id="cardListId">
-                    <thead>
+    </div>
+    <div class="ui grid">
+        <div class="ten wide column">
+            <!--  <h3 class="ui center aligned header"> My Card List</h3> -->
+            <h3 class="ui aligned header"> Market Card List</h3>
+            <!------------------------------------------------------------------------->
+            <!--    ----------------------------- List ----------------------------- -->
+            <!------------------------------------------------------------------------->
+            <table class="ui fixed selectable single line celled table" id="cardListId">
+                <thead>
+                    <tr>
+                        <th class="three wide">Name</th>
+                        <th class="three wide">Description</th>
+                        <th>Family</th>
+                        <th>HP</th>
+                        <th>Energy</th>
+                        <th>Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="tableContent">
+                    <template id="row">
                         <tr>
-                            <th class="three wide">Name</th>
-                            <th class="three wide">Description</th>
-                            <th>Family</th>
-                            <th>HP</th>
-                            <th>Energy</th>
-                            <th>Price</th>
-                            <th></th>
+                            <td>
+                                {{name}}
+                            </td>
+                            <td>{{description}}</td>
+                            <td>{{family_name}}</td>
+                            <td>{{hp}}</td>
+                            <td>{{energy}}</td>
+                            <td>{{price}}$</td>
+                            <td>
+                                <button id-card="{{id}}" class="ui vertical button buy-button" tabindex="0"
+                                    type="button">
+                                    <i class="shop icon"></i> Buy
+                                </button>
+                            </td>
                         </tr>
-                    </thead>
-                    <tbody id="tableContent">
-                        <template id="row">
-                            <tr>
-                                <td>
-                                    {{name}}
-                                </td>
-                                <td >{{description}}</td>
-                                <td>{{family_name}}</td>
-                                <td>{{hp}}</td>
-                                <td>{{energy}}</td>
-                                <td>{{price}}$</td>
-                                <td>
-                                    <button id-card="{{id}}" class="ui vertical button buy-button" tabindex="0" type="button">
-                                        <i class="shop icon"></i> Buy
-                                    </button>
-                                </td>
-                            </tr>
-                        </template>
-                    </tbody>
-                </table>
-            </div>
-            <div class=" five wide column">
-                   
-                <!------------------------------------------------------------------------->
-                <!--    ----------------------------- CARD ----------------------------- -->
-                <!------------------------------------------------------------------------->
-                <div id="card"></div> 
+                    </template>
+                </tbody>
+            </table>
+        </div>
+        <div class=" five wide column">
 
-            </div>
+            <!------------------------------------------------------------------------->
+            <!--    ----------------------------- CARD ----------------------------- -->
+            <!------------------------------------------------------------------------->
+            <div id="card"></div>
 
         </div>
 
-        <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
-        <script src="./js/animation-custom.js"></script> 
-        <script>
-            $(document).ready(function () {
-                var token = getCookie("token");
-                var user = null;
-                if (token) {
+    </div>
+
+    <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
+    <script src="./js/animation-custom.js"></script>
+    <script>
+        $(document).ready(function () {
+            var token = getCookie("token");
+            var user = null;
+            if (token) {
+                $.ajax({
+                    type: "GET",
+                    url: "/users/" + token,
+                    data: null,
+                    dataType: "json",
+                    contentType: 'application/json'
+                }).done(function (data) {
+
+                    if (!data) {
+                        $(location).attr('href', '/login.html');
+                    }
+                    user = data;
+                    if (user.id == null) {
+                        $(location).attr('href', '/login.html');
+                    }
+
+                    $('#name').text(user.name);
+                    $('#solde').text(user.solde + ' $');
+                    loadCards(user);
+                });
+            } else {
+                $(location).attr('href', '/login.html');
+            }
+
+            function buyCardEvent(user) {
+                $(".buy-button").on("click", function () {
+                    var id = $(this).attr('id-card');
                     $.ajax({
-                        type: "GET",
-                        url: "/users/" + token,
+                        type: "POST",
+                        url: "/market/buy/" + id + "/" + user.id,
                         data: null,
                         dataType: "json",
                         contentType: 'application/json'
                     }).done(function (data) {
-                        
-                        if (!data) {
-                            $(location).attr('href', '/login.html');
+                        if (data) {
+                            location.reload();
                         }
-                        user = data;
-                        if (user.id == null) {
-                            $(location).attr('href', '/login.html');
-                        }
-
-                        $('#name').text(user.name);
-                        $('#solde').text(user.solde + ' $');
-                        loadCards(user);
                     });
-                } else {
-                    $(location).attr('href', '/login.html');
-                }
-            });
-
-            function buyCardEvent(user) {
-                $( ".buy-button" ).on( "click", function() {
-                    var id = $(this).attr('id-card');
-                    $.ajax({
-                            type: "POST",
-                            url: "/market/buy/" + id + "/" + user.id,
-                            data: null,
-                            dataType: "json",
-                            contentType: 'application/json'
-                        }).done(function (data) {
-                            if (data) {
-                                location.reload();
-                            }
-                        });
                 });
             }
-            
+
 
             function loadCards(user) {
                 let template = document.querySelector("#row");
@@ -137,30 +139,37 @@
                 }).done(function (data) {
                     if (data) {
                         var cardList = data;
-                        for(const card of cardList){
+                        for (const card of cardList) {
                             let clone = document.importNode(template.content, true);
 
-                            newContent= clone.firstElementChild.innerHTML
-                                        .replace(/{{family_name}}/g, card.family)
-                                        .replace(/{{name}}/g, card.name)
-                                        .replace(/{{description}}/g, card.description)
-                                        .replace(/{{hp}}/g, card.hp)
-                                        .replace(/{{energy}}/g, card.energy)
-                                        .replace(/{{id}}/g, card.id)
-                                        .replace(/{{price}}/g, card.price);
-                            clone.firstElementChild.innerHTML= newContent;
+                            newContent = clone.firstElementChild.innerHTML
+                                .replace(/{{family_name}}/g, card.family)
+                                .replace(/{{name}}/g, card.name)
+                                .replace(/{{description}}/g, card.description)
+                                .replace(/{{hp}}/g, card.hp)
+                                .replace(/{{energy}}/g, card.energy)
+                                .replace(/{{id}}/g, card.id)
+                                .replace(/{{price}}/g, card.price);
+                            clone.firstElementChild.innerHTML = newContent;
 
-                            let cardContainer= document.querySelector("#tableContent");
+                            let cardContainer = document.querySelector("#tableContent");
                             cardContainer.appendChild(clone);
                         }
                         buyCardEvent(user);
                     }
-                    
+
                 });
-                
+
 
             }
-        </script>
 
-    </body>
+            $(".disconnection").on("click", function () {
+                eraseCookie('token');
+                location.reload();
+            });
+        });
+    </script>
+
+</body>
+
 </html>
