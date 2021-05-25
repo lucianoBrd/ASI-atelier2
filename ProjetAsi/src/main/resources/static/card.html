@@ -9,29 +9,18 @@
         <!-- Site Properties -->
         <title>Grid Example - Semantic</title>
 
-        <link rel="stylesheet" type="text/css" href="../lib/Semantic-UI-CSS-master/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
+        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/custom.css">
+        <script src="./lib/jquery-3.3.1.min.js"></script>
+        <script src="./js/cookie.js"></script>
 
     </head>
 
     <body>
         <div class="ui pointing menu">
-            <a class="item">
-                Home
-            </a>
-            <a class="item">
-                Messages
-            </a>
-            <a class="item active">
-                Friends
-            </a>
+            <p class="item" id="solde"></p>
             <div class="right menu">
-                <div class="item">
-                    <div class="ui transparent icon input">
-                        <input type="text" placeholder="Search...">
-                        <i class="search link icon"></i>
-                    </div>
-                </div>
+                <p class="item" id="name"></p>
             </div>
         </div>
         <div class="ui segment">
@@ -83,10 +72,38 @@
         </div>
     
 
-        <script src="../lib/jquery-3.3.1.min.js"></script>
-        <script src="../lib/Semantic-UI-CSS-master/semantic.js"></script>
-        <script src="js/animation-custom.js"></script> 
-        <script src="js/card.js"></script> 
+        <script src="./lib/Semantic-UI-CSS-master/semantic.js"></script>
+        <script src="./js/animation-custom.js"></script> 
+        <script src="./js/card.js"></script> 
+        <script>
+            $(document).ready(function () {
+                var token = getCookie("token");
+                var user = null;
+                if (token) {
+                    $.ajax({
+                        type: "GET",
+                        url: "/users/" + token,
+                        data: null,
+                        dataType: "json",
+                        contentType: 'application/json'
+                    }).done(function (data) {
+                        
+                        if (!data) {
+                            $(location).attr('href', '/login.html');
+                        }
+                        user = data;
+                        if (user.id == null) {
+                            $(location).attr('href', '/login.html');
+                        }
+
+                        $('#name').text(user.name);
+                        $('#solde').text(user.solde + ' $');
+                    });
+                } else {
+                    $(location).attr('href', '/login.html');
+                }
+            });
+        </script>
 
     </body>
 </html>

@@ -22,7 +22,7 @@ public class MarketService {
 	
 	public Boolean buyCard(int id, int idUser) {
 		Card c = cService.getCardbyId(id);
-		User u = uService.getUser(idUser);
+		User u = uService.getUserById(idUser);
 		
 		if (c != null && u != null && c.getIdUser() == null && (u.getSolde() - c.getPrice()) >= 0) {
 			c.setIdUser(idUser);
@@ -38,7 +38,7 @@ public class MarketService {
 
 	public Boolean sellCard(int id, int idUser) {
 		Card c = cService.getCardbyId(id);
-		User u = uService.getUser(idUser);
+		User u = uService.getUserById(idUser);
 		
 		if (c != null && u != null && c.getIdUser() == idUser) {
 			c.setIdUser(null);

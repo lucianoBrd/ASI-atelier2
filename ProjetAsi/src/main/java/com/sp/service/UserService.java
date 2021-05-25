@@ -19,7 +19,16 @@ public class UserService {
 		System.out.println(createdCard);
 	}
 	
-	public User getUser(int id) {
+	public User getUser(String token) {
+		java.util.Optional<User> uOpt =uRepository.findByToken(token);
+		if (uOpt.isPresent()) {
+			return uOpt.get();
+		}else {
+			return null;
+		}
+	}
+	
+	public User getUserById(int id) {
 		java.util.Optional<User> uOpt =uRepository.findById(id);
 		if (uOpt.isPresent()) {
 			return uOpt.get();

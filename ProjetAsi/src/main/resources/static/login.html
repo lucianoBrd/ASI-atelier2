@@ -33,6 +33,7 @@
                     </div>
 
                     <button class="ui button" type="submit" >Connection</button>
+                    <a class="ui button" href="/sign_up.html" >Sign up</a>
                 </form>
             </div>
         </div>
@@ -50,7 +51,7 @@
                     }).done(function (data) {
                         if (data && (data != 'null')) {
                             setCookie("token", data, 1);
-                            $(location).attr('href', '/card.html');
+                            $(location).attr('href', '/home.html');
                         }
                     });
 

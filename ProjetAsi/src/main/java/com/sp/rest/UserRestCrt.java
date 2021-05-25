@@ -30,15 +30,18 @@ public class UserRestCrt {
     	return true;
     }
     
-    @RequestMapping(method=RequestMethod.GET,value="/users/{id}")
-    public UserDto getUser(@PathVariable String id) {
-    	User u=uService.getUser(Integer.valueOf(id));
+    @RequestMapping(method=RequestMethod.GET,value="/users/{token}")
+    public UserDto getUser(@PathVariable String token) {
+    	User u=uService.getUser(token);
         return convertToDto(u);
     }
     
     private UserDto convertToDto(User user) {
-    	UserDto userDto = modelMapper.map(user, UserDto.class);
-        return userDto;
+    	if (user != null) {
+	    	UserDto userDto = modelMapper.map(user, UserDto.class);
+	        return userDto;
+    	}
+    	return new UserDto();
     }
     
     private User convertToEntity(UserDto userDto) {

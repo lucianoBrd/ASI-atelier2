@@ -8,5 +8,7 @@ public interface UserRepository extends CrudRepository<User, Integer> {
 
 	public List<User> findByName(String name);
 	
+	public java.util.Optional<User> findByToken(String token);
+	
 	public java.util.Optional<User> findBySurnameAndPassword(String surname, String password);
 }
