@@ -12,12 +12,12 @@ public class AuthService {
 	@Autowired
 	UserRepository uRepository;
 	
-	public Integer login(String surname, String password) {
+	public String login(String surname, String password) {
 		java.util.Optional<User> uOpt = uRepository.findBySurnameAndPassword(surname, password);
 		if (uOpt.isPresent()) {
-			return uOpt.get().getId();
+			return uOpt.get().getToken();
 		}else {
-			return null;
+			return "null";
 		}
 	}
 

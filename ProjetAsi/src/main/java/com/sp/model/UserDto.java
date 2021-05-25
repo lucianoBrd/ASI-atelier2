@@ -5,6 +5,7 @@ public class UserDto {
 	private String name;
 	private String surname;
 	private int solde;
+	private String token;
 	
 	public Integer getId() {
 		return id;
@@ -29,5 +30,11 @@ public class UserDto {
 	}
 	public void setSolde(int solde) {
 		this.solde = solde;
+	}
+	public String getToken() {
+		return token;
+	}
+	public void setToken(String token) {
+		this.token = token;
 	}
 }

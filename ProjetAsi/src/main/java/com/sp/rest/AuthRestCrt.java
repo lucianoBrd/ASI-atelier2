@@ -16,7 +16,7 @@ public class AuthRestCrt {
 	AuthService aService;
     
 	@RequestMapping(method=RequestMethod.GET,value="/login")
-   public Integer login(@RequestParam String surname, @RequestParam String password) {
+   public String login(@RequestParam String surname, @RequestParam String password) {
   	 
        return aService.login(surname, password);
    }

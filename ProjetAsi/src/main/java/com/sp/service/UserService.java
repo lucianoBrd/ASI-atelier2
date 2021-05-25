@@ -14,6 +14,7 @@ public class UserService {
 	@Autowired
 	UserRepository uRepository;
 	public void addUser(User u) {
+		u.createToken();
 		User createdCard=uRepository.save(u);
 		System.out.println(createdCard);
 	}

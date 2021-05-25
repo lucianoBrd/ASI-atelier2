@@ -9,9 +9,10 @@
         <!-- Site Properties -->
         <title>Login</title>
 
-        <link rel="stylesheet" type="text/css" href="../lib/Semantic-UI-CSS-master/semantic.min.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
-
+        <link rel="stylesheet" type="text/css" href="./lib/Semantic-UI-CSS-master/semantic.min.css">
+        <link rel="stylesheet" type="text/css" href="./css/custom.css">
+        <script src="./lib/jquery-3.3.1.min.js"></script>
+        <script src="./js/cookie.js"></script>
     </head>
 
     <body>
@@ -23,21 +24,39 @@
                 <form class="ui form" action="./users" method="POST">
                     <h3 class="ui dividing header">Connect you</h3>
                     <div class="field">
-                        <label>Name</label>
-                        <input type="text" name="name" placeholder="Name">
-                    </div>
-                    <div class="field">
                         <label>Surname</label>
-                        <input type="text" name="surname" placeholder="Surname">
+                        <input type="text" name="surname" placeholder="Surname" id="surname">
                     </div>
                     <div class="field">
                         <label>Password</label>
-                        <input type="password" name="password" placeholder="Password">
+                        <input type="password" name="password" placeholder="Password" id="password">
                     </div>
 
                     <button class="ui button" type="submit" >Connection</button>
                 </form>
             </div>
         </div>
+        <script>
+            $(document).ready(function () {
+                $("form").submit(function (event) {
+                    var formData = "surname="+$("#surname").val()+"&"+"password="+$("#password").val();
+                    
+                    $.ajax({
+                        type: "GET",
+                        url: "/login",
+                        data: formData,
+                        dataType: "json",
+                        contentType: 'application/json'
+                    }).done(function (data) {
+                        if (data && (data != 'null')) {
+                            setCookie("token", data, 1);
+                            $(location).attr('href', '/card.html');
+                        }
+                    });
+
+                    event.preventDefault();
+                });
+            });
+        </script>
     </body>
 </html>

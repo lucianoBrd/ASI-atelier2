@@ -1,5 +1,7 @@
 package com.sp.model;
 
+import java.util.UUID;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -13,6 +15,7 @@ public class User {
 	private String surname;
 	private String password;
 	private int solde = 5000;
+	private String token;
 	
 	public User() {	
 	}
@@ -56,6 +59,18 @@ public class User {
 
 	public void setSolde(int solde) {
 		this.solde = solde;
+	}
+
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+	
+	public void createToken() {
+		this.setToken(String.valueOf((this.getName() + this.getPassword() + "paulpaul" + this.getSurname() + this.getSolde()).hashCode()));
 	}
 	
 }
